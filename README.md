@@ -12,12 +12,25 @@ To tackle these challenges, we resort to the emerging scheme of $\textit{Learnin
 
 ### Meta-Testing
 
+We provide checkpoints of the optimizers under the `checkpoints` folder.  
+
 #### Two-player games (stable)
 
 ```bash
-CUDA_VISIBLE_DEVICES=0 python sga_l2o_batch.py --eval_game_list stable_game_list_normal.txt --checkpoint checkpoints/two_player.pkl --n_hidden 32 --formula grad,A,S --feat_level o,m0.5,m0.9,m0.99,mt,gt
+python sga_l2o_batch.py --eval_game_list stable_game_list_normal.txt --checkpoint checkpoints/two_player.pkl --n_hidden 32 --formula grad,A,S --feat_level o,m0.5,m0.9,m0.99,mt,gt
 ```
 
 #### Four-player games 
 
-CUDA_VISIBLE_DEVICES=0 python sga_l2o_batch_four_player.py  --checkpoint checkpoints/four_player.pkl  --n_hidden 32 --formula grad,S,A --feat_level o,m0.5,m0.9,m0.99,mt,gt --n_player 4
+python sga_l2o_batch_four_player.py  --checkpoint checkpoints/four_player.pkl  --n_hidden 32 --formula grad,S,A --feat_level o,m0.5,m0.9,m0.99,mt,gt --n_player 4
+
+
+#### GANs
+
+### Meta-Training
+
+#### Two-player games
+
+```bash
+python -u sga_l2o_train.py --n_hidden 32 --game-distribution gaussian --formula grad,S,A --inner-iterations 100 --feat_level o,m0.5,m0.9,m0.99,mt,gt --unroll_length 10 --output-name all_cl_0.1_reg_2_0.95.pkl --eval-game-list stable_game_list_new.txt --init-mode ball  --use-slow-optimizer --use-slow-ema --slow-optimizer-freq 5 --epoch 300 --wandb-name all_cl_0.1_reg_2_0.95 --slow-ema 0.95 --slow-optimizer-start 0.1  --cl --reg_2 --data-cl --batch-size 128 
+```
