@@ -29,7 +29,7 @@ from tqdm import tqdm
 def main():
     torch.manual_seed(args.seed)
     # eval_game_list = [-1,-0.8,-0.6,-0.4,-0.2,0.2,0.4,0.6,0.8,1]# load_games_list(args.eval_game_list, args.n_player)
-    eval_game_list = list([0.6, 1])
+    eval_game_list = list([0.6, 1, 2])
     print(eval_game_list)
     counts = []
     formula = args.formula.split(",")
